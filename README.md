@@ -1,66 +1,66 @@
-# 🚗 Driver Drowsiness Detection Using Eye 👁️  
+# Driver Drowsiness Detection Using Eye
 
-## 🧠 Overview  
-Driver fatigue is one of the leading causes of road accidents worldwide. This project presents a **real-time driver drowsiness detection system** that monitors a driver’s eye state using **computer vision** and **deep learning** techniques. The system issues an alert when it detects prolonged eye closure, helping prevent accidents caused by drowsiness or fatigue.
-
----
-
-## 🎯 Problem Statement  
-The objective of this project is to develop a **real-time system** capable of detecting driver drowsiness through eye state analysis. The system continuously captures video frames using a webcam, detects the driver’s face and eyes, and classifies the eye state as **open** or **closed** using a **Convolutional Neural Network (CNN)** model.  
-If the eyes remain closed beyond a certain duration, the system triggers an **audio alert** to wake up the driver and ensure road safety.
+## Overview
+This project implements a real-time driver drowsiness detection system using computer vision and deep learning. The system analyzes the driver’s eye state (open or closed) from a video feed and triggers an alarm if signs of drowsiness are detected. It leverages Haar cascade classifiers for face and eye detection, along with a pre-trained Convolutional Neural Network (CNN) model for eye state classification. The alert mechanism aims to enhance road safety by preventing accidents caused by driver fatigue.
 
 ---
 
-## ⚙️ System Workflow  
+## Problem Statement
+The objective of this project is to develop an automated system that detects driver drowsiness through continuous monitoring of eye movements. Using a webcam or video input, the system identifies the face and eyes in each frame, classifies the eye state using a trained CNN model, and calculates a score based on how long the eyes remain closed. When the score exceeds a defined threshold, an alarm sound is triggered to alert the driver.
 
-1. **Frame Capture:**  
-   The webcam captures continuous frames of the driver.  
+---
+
+## System Workflow
+
+1. **Video Frame Capture:**  
+   The system reads frames continuously from a webcam or video file.
 
 2. **Face and Eye Detection:**  
-   - The **Haar Cascade classifier** detects the face and extracts a Region of Interest (ROI).  
-   - Separate classifiers detect the **left** and **right eyes** within the ROI.  
+   - Haar cascade classifiers are used to detect the face and eyes in each frame.  
+   - Separate classifiers are applied for detecting the left and right eyes.
 
 3. **Eye State Classification:**  
-   - Each eye image is pre-processed and passed to a **pre-trained CNN model (cnnCat2.h5)**.  
-   - The model classifies the eye as **open** or **closed**.  
+   - Each detected eye region is preprocessed and passed to a CNN model (`cnn_model.h5`) for classification.  
+   - The model predicts whether the eye is open or closed.
 
-4. **Drowsiness Scoring:**  
-   - A **score counter** increments when both eyes are closed.  
-   - If the score exceeds a defined **threshold**, an **alert sound (alarm.wav)** is triggered.  
+4. **Drowsiness Detection Logic:**  
+   - A score is incremented if both eyes remain closed over consecutive frames.  
+   - When the score surpasses the defined limit, an alert (`alarm.wav`) is played using the Pygame mixer.
+
+5. **Visualization:**  
+   - The live video feed displays the detected face, eye state, and current score in real time.
 
 ---
 
-## 🧩 Technologies and Libraries  
+## Technologies and Libraries
 
 | Category | Tools / Libraries |
 |-----------|------------------|
 | Programming Language | Python 3.x |
-| Deep Learning | TensorFlow, Keras |
+| Deep Learning Framework | TensorFlow, Keras |
 | Computer Vision | OpenCV |
 | Audio Alert | Pygame |
-| Model | Pre-trained CNN (cnnCat2.h5) |
+| Model | Pre-trained CNN (`cnn_model.h5`) |
 | Classifiers | Haar Cascade XML files for face and eyes |
 
 ---
 
-## 🗂️ Project Structure  
+## How It Works
 
-Driver-Drowsiness-Detection/
-│
-├── haarcascade_frontalface_alt.xml
-├── haarcascade_lefteye_2splits.xml
-├── haarcascade_righteye_2splits.xml
-├── cnnCat2.h5
-├── alarm.wav
-├── drowsiness_detection.py
-├── README.md
-└── requirements.txt
+1. The system initializes the Haar cascade classifiers and the pre-trained CNN model.  
+2. Frames are captured from a video file or webcam.  
+3. The face is detected and regions containing eyes are extracted.  
+4. The CNN model classifies each eye as either open or closed.  
+5. A score variable tracks the duration of eye closure.  
+6. If the eyes remain closed beyond the set threshold, an audio alert (`alarm.wav`) is triggered.
+
+---
+
+## Requirements
+
+1. Python 3.8 or higher
+2. TensorFlow
+3. Keras
+4. OpenCV
 
 
-## 🧾 Requirements
-
-  1. Python 3.8 or higher
-  
-  2. TensorFlow / Keras
-  
-  3. OpenCV
